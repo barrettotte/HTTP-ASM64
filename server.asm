@@ -44,19 +44,19 @@ SECTION .text
 
     _start:                             ; -------------[Make Socket]-----------
         mov     rax,41                  ; sys_socket() Create Socket
-        mov	    rdi,2                   ; Set Address Family
-        mov	    rsi,1                   ; Set socket byte stream
-        mov 	rdx,6                   ; Set TCP Socket Protocol
+        mov     rdi,2                   ; Set Address Family
+        mov     rsi,1                   ; Set socket byte stream
+        mov     rdx,6                   ; Set TCP Socket Protocol
         syscall                         ; Return socket rax
         mov     [socket],rax            ; Store socket pointer
 
                                         ; -------------[Socket Address]--------
         push    rbp                     ; Store stack pointer (base)
         mov     rbp,rsp                 ; Move stack top to base
-        push	dword 0                 ; Set 4-byte address padding
-        push	dword 0x0100007F        ; 127.0.0.1 UINT32 Big Endian(ABCD)
-        push	word  0x560f	        ; Port 3926 UINT16 Little Endian(BA) 
-        push	word  2                 ; Set Address Family
+        push    dword 0                 ; Set 4-byte address padding
+        push    dword 0x0100007F        ; 127.0.0.1 UINT32 Big Endian(ABCD)
+        push    word  0x560f	        ; Port 3926 UINT16 Little Endian(BA) 
+        push    word  2                 ; Set Address Family
         mov     [socketAddr],rsp        ; Store address pointer
         add     rsp,12                  ; Clean up stack
         pop     rbp                     ; Restore original stack pointer
@@ -66,14 +66,14 @@ SECTION .text
         mov     rdi,[socket]            ; Load socket pointer
         mov     rsi,1                   ; Socket byte stream
         mov     rdx,2                   ; Enable address reuse
-        mov     r10, socketOn           ; Set socket enabled
+        mov     r10,socketOn            ; Set socket enabled
         mov     r8,dword 32             ; Load 32 bit socket address size
         syscall                         ; Return socket rdi
         cmp     rax,0                   ; Check for error
         jne     closeServer             ; Close server if error
 
                                         ; -------------[Bind Socket]-----------
-        mov	    rax,49                  ; sys_bind()
+        mov     rax,49                  ; sys_bind()
         mov     rdi,[socket]            ; Load socket pointer
         mov     rsi,[socketAddr]        ; Load address pointer
         mov     rdx,dword 32            ; Load 32 bit socket address size
@@ -87,9 +87,9 @@ SECTION .text
         mov     rsi,startMsg            ; Load start message
         mov     rdx,startMsgLen         ; Load start message length
         syscall                                
-        mov	    rax,50                  ; sys_listen()
-        mov	    rdi,[socket]            ; Load socket pointer
-        mov	    rsi,8                   ; Load max clients
+        mov     rax,50                  ; sys_listen()
+        mov     rdi,[socket]            ; Load socket pointer
+        mov     rsi,8                   ; Load max clients
         syscall                         ; 
 
     serverAccept:                       ; ---------[Accept Connection]---------
