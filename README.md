@@ -16,7 +16,7 @@ and is **only able to serve a single page, index.html**
 
 ## Setup
 * Dependencies ```sudo apt-get -y install nasm build-essential```
-* Assembling/Linking ```make build``` or ```./Run-NASM.sh server.asm```
+* Assembling+Linking+Running ```make build && ./server``` or ```./Run-NASM.sh server.asm```
 * Listening on http://127.0.0.1:3926
 
 
