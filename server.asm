@@ -55,7 +55,7 @@ SECTION .text
         mov     rbp,rsp                 ; Move stack top to base
         push    dword 0                 ; Set 4-byte address padding
         push    dword 0x0100007F        ; 127.0.0.1 UINT32 Big Endian(ABCD)
-        push    word  0x560f	        ; Port 3926 UINT16 Little Endian(BA) 
+        push    word  0x560f            ; Port 3926 UINT16 Little Endian(BA) 
         push    word  2                 ; Set Address Family
         mov     [socketAddr],rsp        ; Store address pointer
         add     rsp,12                  ; Clean up stack
